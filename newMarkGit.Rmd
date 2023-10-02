@@ -1,0 +1,162 @@
+---
+title: "myFirstRMarkdown"
+author: "Ruizhou Peng"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+## 4. R Markdown
+
+Firstly we create a data frame named animal_df
+
+```{r}
+animal <- c('snake', 'ostrich', 'cat', 'spider') 
+nums_leg <- c(0, 2, 4, 8)
+
+animal_df <- data.frame(animal, nums_leg)
+```
+
+then we print it
+
+```{r}
+print(animal_df)
+```
+
+see what will happen
+
+## 5. Matrix operations
+
+use seq() to generate vector
+
+```{r}
+x_vect <- seq(12, 2, -2)
+
+```
+
+convert vector into a matrix
+
+```{r}
+X <- matrix(x_vect, 2, 3)
+```
+
+create 2\*2matrix Y from 1-4
+
+```{r}
+Y <- matrix(seq(1,4,1), 2, 2)
+```
+
+create 2\*2matrix Z from 4-10
+
+```{r}
+Z <- matrix(seq(4,10,2), 2, 2) 
+```
+
+use t() to create transpos matrix of Y and Z
+
+```{r}
+YT <- t(Y)
+ZT <- t(Z)
+```
+
+try matrix sums
+
+```{r}
+sum1 <- Y+Z
+sum2 <- Z+Y
+```
+
+matrix multiplication: use %\*% not \*
+
+```{r}
+mul1 <- Y%*%Z
+mul2 <- Z%*%Y
+#mul3 <- Y*X
+```
+
+```{r}
+res <- Y %*% X
+```
+
+matrix element-wise multiplication
+
+```{r}
+res2 <- Y*Z
+res3 <- Z*Y
+```
+
+matrix inverse: use solve()
+
+```{r}
+Y_1 <- solve(Y)
+check <- Y_1 %*% Y
+Y_1X <- Y_1 %*% X
+```
+
+try Y^-1^ \* X without computing Y^-1^
+
+```{r}
+Y_1X_2 <- solve(Y, X)
+```
+
+### 6. R function
+
+```{r}
+myFirstRFunc <- function(n){
+  "
+  argument: n ---> number
+  function: output the sum of those numbers strictly below n which are divisible by either 2 or 7 or both
+  "
+  
+  sum <- 0
+  iter <- 2
+  while(iter<n){
+    if(iter %% 7 == 0){
+      iter <- iter+2
+      next
+    }
+
+    sum <- sum + iter
+    print(iter)
+    iter <- iter + 2
+    
+  }
+  iter <- 7
+  while(iter < n){
+    sum <- sum + iter
+    print(iter)
+    iter <- iter + 7
+
+  }
+  
+  return(sum)
+}
+
+print(myFirstRFunc(15))
+```
+
+### 7. wave plot
+
+```{r}
+# define a vector x
+x <- seq(0, 20, 0.01)
+
+# define a vector y which equals sin(x)
+y <- sin(x)
+
+# create a data frame sin_df
+sin_df <- data.frame(x = x,sinx = y)
+
+# inspect first few rows
+head(sin_df, 5)
+
+# plot sin_df
+plot(x, y, main = "sin(x)")
+```
+
+### 8. mathematical formula
+
+$$ \sin(x)=\sum_{n=1}^{\infty}(-1)^{n+1}\cdot \frac{x^{2n-1}}{(2n-1)!} \approx x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}\ldots.$$
+
+$$
+A=\left[\begin{matrix} a_{11} & a_{12}\\ a_{21} & a_{22} \end{matrix}\right]
+$$
